@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:pPr><w:pStyle w:val="title"/><w:jc w:val="left"/></w:pPr><w:r><w:t>EECI Graduate School: Learning-Based Predictive Control</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Lukas Hewing, Alexandre Didier, Jérôme Sieber</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/><w:i/></w:rPr><w:t>Copyright (C) 2022, ETH Zurich, {lhewing, jsieber, adidier}@ethz.ch</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>This code is only made available for students taking the EECI Learning-Based Predictive Control graduate school and is NOT to be distributed.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Requires MPT Toolbox: https://www.mpt3.org/</w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>Nominal </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>&amp;</w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t> Robust MPC of Mass-Spring-Damper</w:t></w:r></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>Preliminaries</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>You are provided with the following coding template files: </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>E01_Fundamentals.mlx    </w:t></w:r><w:r><w:t>Main (live) script (to be edited throughout)</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>NominalMPC.m            </w:t></w:r><w:r><w:t>Nominal MPC Class    (to be edited in Section III)</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>RobustMPC.m             </w:t></w:r><w:r><w:t>Robust MPC Class     (to be edited in Section IV)</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>LinearSystem.m          </w:t></w:r><w:r><w:t>Helper Class</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>SimulateMSD.m           </w:t></w:r><w:r><w:t>Helper Function</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Areas in the code to be modified are indicated by </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% --------- Start Modifying Code Here -----------
+%
+% The existing (incomplete) code in the modifiable areas serves as a hint
+%
+% --------- End Modifying Code Here -----------]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Clean up script</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[clear
+close all
+
+% fix random seed
+rng(1)]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Problem Description</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>In this exercise we investigate nominal and (constraint tightening) robust linear MPC for a simple mass-spring damper system with spring constant </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>k = 0.3</w:t></w:r></w:customXml><w:r><w:t> and damping coefficient </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>d = 0.2</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\dot{x}= \left[\matrix{ 0 &amp; 1 \cr -k &amp; -d } \right]x + \left[\matrix{ 0 \cr 1}\right] u\]</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>which is brought into our standard form </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>x(k\!+\!1) = Ax(k) + Bu(k)</w:t></w:r></w:customXml><w:r><w:t>by Euler discretization with </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>T_s = 0.25
+</w:t></w:r></w:customXml><w:r><w:t>.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>The system is subject to polytopic state and input constraints</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t> \mathcal{X} = \left\{ x \,\Big|\, \left[\matrix{ 1 &amp; 0 \cr 0 &amp; 1 \cr -1 &amp; 0 \cr 0 &amp; -1}\right] x \leq \left[\matrix{ 1 \cr 1 \cr 5 \cr 1}\right] \right\}</w:t></w:r></w:customXml><w:r><w:t>and </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t> \mathcal{U} = \left\{ u \,\Big|\, \left[\matrix{ 1 \cr -1}\right] x \leq \left[\matrix{ 1 \cr  1}\right] \right\}</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>System Definition</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>The cells below to define the mass spring damper model</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% ==============
+% System Parameters
+% ==============
+%Spring and damper constant
+k=0.3;
+d=0.2;
+
+% Continuous time model:
+Ac = [0, 1; -k -d];
+Bc = [0; 1];
+
+% Discretization time
+Ts=0.25;
+
+% Discretized system
+A = eye(2) + Ts*Ac;
+B = Ts*Bc;
+
+% ==============
+% System Constraints
+% ==============
+
+% State constraints; Hx*x <= bx
+Hx=[1,0; 0, 1; -1,0; 0, -1];
+bx=[1; 1; 5; 1];
+
+% Input constraints; Hu*u <= bu
+Hu=[1;-1];
+bu=[1;1];
+
+% Instantiate System
+sys = LinearSystem(A, B, Hx, bx, Hu, bu);]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:b/></w:rPr><w:t>I. Introduction</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Familiarize yourself with the </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>LinearSystem</w:t></w:r><w:r><w:t> class and the </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>SimulateMSD</w:t></w:r><w:r><w:t> function. Plot the systems' state constraints using MPT, design your own controller and simulate the system.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:i/></w:rPr><w:t>Hint: Use </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>plot(P)</w:t></w:r><w:r><w:rPr><w:i/></w:rPr><w:t> to plot a (1D or 2D) MPT polyhedron object </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>P</w:t></w:r><w:r><w:rPr><w:i/></w:rPr><w:t>. For more information see: </w:t></w:r><w:hyperlink w:docLocation="https://www.mpt3.org/"><w:r><w:t>https://www.mpt3.org/</w:t></w:r></w:hyperlink></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% ==============
+% Access & Plot System Constraints
+% ==============
+
+% Plots the systems state constraints
+figure()
+% % --------- Start Modifying Code Here -----------
+% plot(TODO,'alpha',0.1)
+% % --------- Stop Modifying Code Here ------------
+
+title('State Constraints')
+xlabel('Position')
+ylabel('Velocity')
+
+% ==============
+% Simulate System
+% ==============
+
+% Initial condition
+x_init=[-4.5;0];
+
+% Number of time steps in each simulated trajectory
+T = 100;
+
+% Simulate autonomous system
+pi_aut = @(x) zeros(sys.m,1);
+[x,u] = SimulateMSD(sys,pi_aut,x_init,T);
+
+% Simulate system with controller
+% % --------- Start Modifying Code Here -----------
+% % Design Controller
+%     K = TODO;
+%     pi = @(x) K*x;
+% 
+% % Simulate System
+% [x,u] = SimulateMSD(sys,pi,x_init,T);
+% % --------- Stop Modifying Code Here ------------
+
+]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:b/></w:rPr><w:t>II. Yalmip Basics</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>This section gives you a brief introduction to Yalmip which should enable you to set up your own MPC optimization problems.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>For more information see: </w:t></w:r><w:hyperlink w:docLocation="https://yalmip.github.io/"><w:r><w:t>https://yalmip.github.io/</w:t></w:r></w:hyperlink></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading3"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Simple QP</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Solve the quadratic program</w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\min_x x^T\left[ \matrix{3 &amp; 1 \cr 1 &amp; 2}\right]x \ \text{subject to } [1\ 0]x \geq 3, \,  [0 \ 1]x \geq 1</w:t></w:r></w:customXml><w:r><w:t> using Yalmip</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% --------- Start Modifying Code Here -----------
+% % declare optimization variables
+% x = sdpvar(2,1);
+% 
+% % specify objective 
+% objective = 0;
+% Q = TODO;
+% objective = objective + x'*Q*x;
+% 
+% % specify constraints 
+% constraints = [];
+% x1min = TODO;
+% constraints = [constraints, [1, 0]*x >= x1min];
+% x2min = TODO;
+% constraints = [constraints, [0, 1]*x >= x2min];
+% --------- Stop Modifying Code Here ------------
+
+% Set some options for YALMIP and solver
+options = sdpsettings('verbose',1);
+
+% Solve the problem
+sol = optimize(constraints,objective,options);
+if sol.problem~=0
+    warning(yalmiperror(flag))
+else
+    value(x)
+end]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:b/></w:rPr><w:t>III. Nominal Model Predictive Control</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Open the nominalMPC class </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>'nominalMPC.m'</w:t></w:r><w:r><w:t> complete the implementation of the skeleton MPC class. You need to complete the constructor method setting up the optimization problem to be solved.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:i/></w:rPr><w:t>Hint: Try successively adding features (e.g. state constraints) while testing your controller</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Complete the definition of the nominal MPC class: nominalMPC.m]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Design the nominal MPC controller with the following terminal components: Using terminal cost </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>l_f(x) = x^T P x</w:t></w:r></w:customXml><w:r><w:t> as the inifinite horizon unconstrained cost and terminal set </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{X}_f = \{ x \, | \, x^T P x \leq \alpha \}</w:t></w:r></w:customXml><w:r><w:t>.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Compute </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\alpha</w:t></w:r></w:customXml><w:r><w:t> such that </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{X}_f \subseteq \mathcal{X}</w:t></w:r></w:customXml><w:r><w:t>and </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>K\mathcal{X}_f \subseteq \mathcal{U}</w:t></w:r></w:customXml><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>,</w:t></w:r><w:r><w:t> where </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>$K$</w:t></w:r></w:customXml><w:r><w:t> is the infinite horizon unconstrained LQR controller (corresponding to cost matrix </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>$P$</w:t></w:r></w:customXml><w:r><w:t>).</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:i/></w:rPr><w:t>Hint: Use the additional slides </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>EllipseXf.pdf</w:t></w:r><w:r><w:rPr><w:i/><w:rFonts w:cs="monospace"/></w:rPr><w:t>.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% MPC Cost Matrices
+Q = eye(sys.n);
+R = eye(sys.m) * 10;
+
+% MPC Horizon
+N = 30;
+
+% --------- Start Modifying Code Here -----------
+% Define and compute the terminal ingredients
+% TODO: Define LQR controller K
+% TODO: Define infinite horizon cost matrix P
+
+% Find minimum scaling
+% alpha = inf;
+% for i=1:sys.nx
+%    alpha = min(alpha,TODO);
+% end
+% for i=1:sys.nu
+%    alpha = min(alpha,TODO);
+% end
+% --------- Stop Modifying Code Here ------------
+
+
+%Plots sets
+figure()
+xplot = sdpvar(sys.n,1)
+Xf = YSet(xplot,xplot'*P*xplot <= alpha)
+plot(sys.Px,'alpha',0.1)
+hold on
+plot(Xf,'alpha',0.1,'color','blue')
+title('Terminal Set')
+xlabel('Position')
+ylabel('Velocity')]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Instantiate the defined MPC controller</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[nominalMpc = NominalMPC(sys, N, Q, R, P, alpha);]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Simulate the System with the MPC controller</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% ==============
+% Simulate System
+% ==============
+% Initial condition
+x_init=[-4.5;0];
+
+% Number of time steps in each simulated trajectory
+T = 100;
+
+% Define controller function
+pi_nom = @(x) nominalMpc.solve(x);
+
+% Simulate System
+[x, u] = SimulateMSD(sys,pi_nom,x_init,T);]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:b/></w:rPr><w:t>IV. Robust Constraint-Tightening Model Predictive Control</w:t></w:r></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading3"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Constraint Tightening</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Define polytopic constraint set </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{W} = \{ Bw \, | \ \vert w \vert \leq 0.2 \} </w:t></w:r></w:customXml><w:r><w:t>and compute </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>i</w:t></w:r></w:customXml><w:r><w:t> step reachable sets using</w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{F}_{i+1} = (A+BK)\mathcal{F}_{i} \oplus \mathcal{W}</w:t></w:r></w:customXml><w:r><w:t> under LQR tube controller </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>K
+</w:t></w:r></w:customXml><w:r><w:t>(corresponding to the  terminal set </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{X}_f
+</w:t></w:r></w:customXml><w:r><w:t>). </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[%% Compute Constraint Tightening
+
+% Define additive polytopic uncertainty description
+w_max = 0.2;
+Hw = [1;-1];
+hw = w_max*ones(2,1);
+W = B*Polyhedron(Hw,hw);
+
+% --------- Start Modifying Code Here -----------
+% Compute forward reachable sets
+% F{1} = Polyhedron(zeros(0,2),[]);   %start with empty poylhedron
+% for i=1:N
+%    F{i+1} = TODO;
+%    F{i+1}.minHRep;
+% end
+% --------- Stop Modifying Code Here ------------
+]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Plot forward reachable sets
+figure()
+clf
+for i=1:2:N+1
+    hold on
+    plot(F{i},'color','k','alpha',0.1)
+end
+title('Forward Disturbance Reachable Sets')
+xlabel('Position')
+ylabel('Velocity')]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading3"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Terminal Set Computation</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Recompute the terminal set scaling </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>$\bar{\alpha}$
+</w:t></w:r></w:customXml><w:r><w:t>, such that </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{X}_f\ominus\mathcal{F}_N = \{ z \, | \, z^T P z \leq \bar{\alpha} \} \subseteq \mathcal{X} \ominus \mathcal{F}_{N}</w:t></w:r></w:customXml><w:r><w:t> and </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>K \mathcal{X}_f\ominus K \mathcal{F}_N \subseteq \mathcal{U} \ominus K\mathcal{F}_N</w:t></w:r></w:customXml><w:r><w:t>. </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>(You can assume that the resulting terminal set is robust invariant w.r.t. </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>w \in A_K^{N} \mathcal{W}</w:t></w:r></w:customXml><w:r><w:t>)</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% --------- Start Modifying Code Here -----------
+% % Compute tightened constraint sets
+% X_N = sys.Px - TODO; % Tightened state constraint
+% U_N = sys.Pu - TODO; % Tightened input constraint
+% X_N.minHRep;
+% U_N.minHRep;
+% 
+% 
+% % Recompute alpha
+% TODO
+%
+% --------- Stop Modifying Code Here ------------
+]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Visualize the resulting sets
+
+Z_f = YSet(xplot,xplot'*P*xplot <= alpha)
+figure()
+hold off
+plot(sys.Px,'alpha',0.1)
+hold on
+plot(X_N,'alpha',0.1)
+plot(Z_f,'alpha',0.1,'color','blue')
+title('Terminal Constraint Tightening')
+xlabel('Position')
+ylabel('Velocity')]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading3"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Controller Definition</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Open the robustMPC class </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>'robustMPC.m'</w:t></w:r><w:r><w:t> complete the implementation of the skeleton MPC class. Compute the resulting tightened constraint sets </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>$\bar{\mathcal{X}}_i = \mathcal{X} \ominus \mathcal{F}_i</w:t></w:r></w:customXml><w:r><w:t> and </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\bar{\mathcal{U}}_i = \mathcal{U} \ominus K\mathcal{F}_i</w:t></w:r></w:customXml><w:r><w:t> and adjust the constraint tightening in the definition of the optimization problem in the class constructor.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Complete the definition of the robust MPC class: 'RobustMPC.m']]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Instantiate robust MPC controller and visualize robust MPC solution (open-loop plan)</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[robustMpc = RobustMPC(sys, N, Q, R, P, alpha,F,K);
+
+% solve robust MPC problem
+[~,U,X] = robustMpc.solve(x_init);
+
+% visualize open loop plan
+figure()
+%plot trajectory
+plot(X(1,:),X(2,:))
+
+%Add reachable sets
+hold on
+for i=2:N
+    plot(F{i} + X(:,i),'color','k','alpha',0.1)
+end
+
+% Plot state constraints
+plot(sys.Px,'alpha',0.1)
+
+% Plot terminal set
+plot(Z_f,'alpha',0.1,'color','blue')
+hold off
+
+title('Robust Constraint Tightening MPC Planning')
+xlabel('Position')
+ylabel('Velocity')]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Simulate the system with the Robust MPC controller (repeat simulations for different disturbance realizations). Note the deviation from the nominal planned trajectory.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% ==============
+% Simulate System
+% ==============
+% Initial condition (Delta_x)
+x_init=[-4.5;0];
+
+% Number of time steps in each simulated trajectory
+T = 100;
+
+% Define controller function
+pi_r = @(x) robustMpc.solve(x);
+
+% consider uniform random disturbances
+w = sys.B*(rand(1,T)*2*w_max -w_max);
+
+%Simulate system
+[x, u] = SimulateMSD(sys,pi_r,x_init,T,w);]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Compare with nominal MPC (repeat simulations for different disturbance realizations)</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% consider uniform random disturbances
+w = sys.B*(rand(1,T)*2*w_max -w_max);
+
+[x, u] = SimulateMSD(sys,pi_nom,x_init,T,w);
+]]></w:t></w:r></w:p></w:body></w:document>

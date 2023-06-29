@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:pPr><w:pStyle w:val="title"/><w:jc w:val="left"/></w:pPr><w:r><w:t>EECI Graduate School: Learning-Based Predictive Control</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Lukas Hewing, Alexandre Didier, Jérôme Sieber</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/><w:i/></w:rPr><w:t>Copyright (C) 2020, ETH Zurich, {lhewing, jsieber, adidier}@ethz.ch</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>This code is only made available for students taking the EECI Learning-Based Predictive Control graduate school and is NOT to be distributed.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>Requires MPT Toolbox: </w:t></w:r><w:hyperlink w:docLocation="https://www.mpt3.org/"><w:r><w:t>https://www.mpt3.org/</w:t></w:r></w:hyperlink></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>Invariance-Based &amp;</w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t> Predictive Safety Filter</w:t></w:r></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>Preliminaries</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>You are provided with the following coding template files: </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>E04_SafetyFilter.mlx</w:t></w:r><w:r><w:t>     Main (live) script (to be edited throughout)</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>IBSF.m                 </w:t></w:r><w:r><w:t>Linear Invariance-based Filter Class </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>MPSF.m                 </w:t></w:r><w:r><w:t>Predictive Safety Filter Class</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>Explorer.m             </w:t></w:r><w:r><w:t>Exploration Controller Class</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>LinearSystem.m </w:t></w:r><w:r><w:t>                Helper Class</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="ListParagraph"/><w:numPr><w:numId w:val="1"/></w:numPr><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>SimulateMSD.m          </w:t></w:r><w:r><w:t>Helper Function</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Areas in the code to be modified are indicated by </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% --------- Start Modifying Code Here -----------
+%
+% The existing (incomplete) code in the modifiable areas serves as a hint
+%
+% --------- End Modifying Code Here -----------]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Clean up script</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[clear
+% fix random seed
+% rng(1)
+
+% Number of simulation trajectories samples
+Ns = 40;
+
+% Number of time steps in each simulated trajectory
+T = 100;]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:t>Problem Description</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Consider the system defined as follows</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>
+  x(k\!+\!1)= \left[ \matrix{ 1 &amp; T_s &amp; 0 &amp; 0 \cr 0 &amp; 1 &amp; 0 &amp; 0 \cr 0 &amp; 0 &amp; 1 &amp; T_s \cr 0 &amp; 0 &amp; 0 &amp; 1} \right] x(k) + \left[ \matrix{ T_s^2/2 &amp; 0 \cr T_s &amp; 0 \cr 0 &amp; T_s^2/2 \cr 0 &amp; T_s } \right] u(k)
+</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>where the states </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>x(k)= [p_x, \, v_x, \, p_y, \, v_y ]^\top</w:t></w:r></w:customXml><w:r><w:t> are the 2D position and velocity of a robotic agent. </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>The robot is operating inside of a polytopic room and its maximal velocity is limited such that the constraints can be given as </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>x(k)\in\mathcal{X}=\{x\in \mathbb{R}^4 | \; H_x x \leq h_x\}.</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Additionally, the robot is subject to polytopic input constraints </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>u(k)\in\mathcal{U}=\{u\in\mathbb{R}^2 | \; H_u u \leq h_u\}.</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>The goal is to safely explore the room without hitting the walls or violating the velocity constraints.</w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:b/></w:rPr><w:t>System Definition</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>The cells below to define the model of the robotic agent</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% ==============
+% Define System
+% ==============
+Ts = 0.1;
+
+% System matrices; x^+ = A*x + B*u
+A = [   1,  Ts,0,  0;
+        0,  1,  0,  0;
+        0,  0,  1,  Ts;
+        0,  0,  0,  1];
+B = [   Ts^2/2,  0;
+        Ts,0;
+        0,  Ts^2/2;
+        0,  Ts];
+
+% State constraints; Hx*x <= bx
+Hx = [  1,  0,  0,  0;
+        -1, 0,  1,  0;
+        0,  1,  0,  0;
+        0,  -1, 0,  0;
+        0,  0,  1,  0;
+        -1, 0,  -1, 0;
+        0,  0,  0,  1;
+        0,  0,  0,  -1];
+
+hx = [  1,  2,  1,  1,  2,  2,  1,  1]';
+
+% Input constraints; Hu*u <= bu
+Hu = [  1,  0;
+        -1, 0;
+        0,  1;
+        0,  -1];
+
+hu = [  2,  2,  2, 2]';
+
+% Instantiate System
+sys = LinearSystem(A, B, Hx, hx, Hu, hu);]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>The system uses a simple exploration strategy which consists of applying random inputs as long as the system is within the constraint, and a stabilizing linear controller if the system state lies outside the constraints.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% ===========================================
+% Simulate system with exploration algorithm
+% ===========================================
+
+K = -dlqr(sys.A,sys.B,eye(sys.n),eye(sys.m));
+expl = Explorer(sys,@(x) K*x);
+
+pi_expl = @(x) expl.action(x);
+
+x_init = zeros(4,Ns);
+
+[x,u] = SimulateSF(sys,pi_expl,x_init,T);]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:b/></w:rPr><w:t>I. Introduction to Semidefinite Programming in Yalmip</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Use Yalmip and semidefinite programming to find the maximum ellispe </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{E}= \{ x \,| x^T E x \leq 1 \}</w:t></w:r></w:customXml><w:r><w:t>in </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathbb{R}^2</w:t></w:r></w:customXml><w:r><w:t> inscribed in a rectangle </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{H} = \{ x \, | \, -1 \leq x_1 \leq 1,\, -2 \leq x_2 \leq 2\}</w:t></w:r></w:customXml><w:r><w:t> </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Set up the rectangle as an MPT polytope with </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{H} = \{ x \, | \, Hx \leq h\}</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% --------- Start Modifying Code Here -----------
+% H = Polyhedron(TODO)
+% --------- Stop Modifying Code Here ------------]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Set up the semidefinite program maximizing the volume of </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{E}</w:t></w:r></w:customXml><w:r><w:t> subject to the rectangular constraints in Yalmip</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\min -\log \det E^{-1} \text{ s.t. } [H]_i E^{-1} [H]_i^T \leq h_i^2, \ \forall i = 1,\ldots,4</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:i/></w:rPr><w:t>Hint: Yalmip provides a dedicated concave </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>logdet </w:t></w:r><w:r><w:rPr><w:i/></w:rPr><w:t>function</w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[Ei = sdpvar(2)   %define symmetric 2x2 sdp variable E^-1
+
+% --------- Start Modifying Code Here -----------
+% objective = TODO
+% constraints = []
+% for i=1:4
+%     constraints = [constraints, TODO];
+% end
+% --------- Stop Modifying Code Here ------------]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Solve the optimization problem and visualize the solution</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[opts = sdpsettings('verbose',1,'solver','sedumi');
+optimize(constraints,objective,opts)
+E = inv(value(Ei))
+
+figure()
+xplot = sdpvar(2,1)
+plot(YSet(xplot,xplot'*E*xplot <= 1))
+hold on
+plot(H,'alpha',0.1)
+]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:b/></w:rPr><w:t>II. Invariance-Based Safety Filters</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>To ensure safety of the system, we first investigate and invariance-based safety filter based on ellipsoidal safe sets. Using Yalmip we find the maximum volume invariant ellipse </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{S} = \{ x \,|\, x^T P x \leq 1 \}</w:t></w:r></w:customXml><w:r><w:t> under a linear controller </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>$\pi_s(x) = Kx$
+</w:t></w:r></w:customXml><w:r><w:t> within the state &amp; input constraints: </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\mathcal{S} \subseteq \mathcal{X}, \ K\mathcal{S} \subseteq \mathcal{U}</w:t></w:r></w:customXml><w:r><w:t>.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Open </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>IBSF.m </w:t></w:r><w:r><w:t>and complete the definition of the optimization problem in the class constructor, optimizing over both </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>P</w:t></w:r></w:customXml><w:r><w:t> and </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>K
+</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:i/></w:rPr><w:t>Hint: Use the lecture notes to as your reference.</w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% open IBSF.m and complete the optimization problem in the constructor of the IBSF class]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% =================
+% Instantiate IBSF
+% =================
+
+ibsf = IBSF(sys)]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% =================
+% visualize solution
+% =================
+
+figure()
+hold off
+plot(Polyhedron(sys.Px.A(:,[1 3]),sys.Px.b),'alpha',0.1)
+hold on
+xplot = sdpvar(2,1);
+Pproj1 = YSet(xplot,xplot'*ibsf.P([1,3],[1,3])*xplot <= 1)
+plot(Pproj1,'alpha',0.1)
+
+figure()
+hold off
+plot(Polyhedron(sys.Px.A(:,[2 4]),sys.Px.b),'alpha',0.1)
+hold on
+xplot = sdpvar(2,1);
+Pproj2 = YSet(xplot,xplot'*ibsf.P([2,4],[2,4])*xplot <= 1)
+plot(Pproj2,'alpha',0.1)]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Complete the implementation of the </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>filter(x,u_L)</w:t></w:r><w:r><w:t> function of the IBSF class. Evaluate the resulting saftey filter.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[pi_ibsf_expl = @(x) ibsf.filter(x,expl.action(x))
+[x,u] = SimulateSF(sys,pi_ibsf_expl,x_init,T);]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"><mc:Choice Requires="R2018b"><w:pPr><w:pStyle w:val="heading2"/><w:jc w:val="left"/></w:pPr></mc:Choice><mc:Fallback><w:pPr><w:pStyle w:val="heading"/><w:jc w:val="left"/></w:pPr></mc:Fallback></mc:AlternateContent><w:r><w:rPr><w:b/></w:rPr><w:t>III. Predictive Safety Filters</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Next, we design and implement a model predictive safety filters (MPSF) for the system, making use of the previously designed safe set as a </w:t></w:r><w:r><w:rPr><w:i/></w:rPr><w:t>terminal set</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Open </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>MPSF.m</w:t></w:r><w:r><w:t> </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>and </w:t></w:r><w:r><w:t>complete the optimization problem in the class constructor.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% implement MPSF class constructor]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:rPr><w:i/></w:rPr><w:t>Note: To enhance numerical stability, the state constraints are implemented as soft-constraints.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Complete the </w:t></w:r><w:r><w:rPr><w:rFonts w:cs="monospace"/></w:rPr><w:t>filter(x,u_L)</w:t></w:r><w:r><w:t> function in the predictive safety filter class</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% implement MPSF class (MPSF.m)]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Evaluate the system with the predictive safety filter using the invariance-based safe set from the first part as your terminal set. Evaluate the behavior for different prediction horizon lengths </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>N</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% =================
+% Instantiate MPSF
+% =================
+N = 15;
+mpsf = MPSF(sys,N,ibsf.P,1,ibsf.K);
+pi_mpsf_expl = @(x) mpsf.solve(x,expl.action(x));]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% Simulate System
+Ns = 1; % start out with just one trajectory, you can adjust later
+x_init = zeros(4,Ns);
+
+warning off %when using SEDUMI you may get many numerical problem warnings..
+[x,u] = SimulateSF(sys,pi_mpsf_expl,x_init,T);
+warning on]]></w:t></w:r></w:p></w:body></w:document>
